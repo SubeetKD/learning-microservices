@@ -7,20 +7,21 @@ import (
 	"net/http"
 )
 
+// refactoring the repo
 type Hello struct {
-    l *log.Logger
+    logger *log.Logger
 }
 
-func NewHello(l *log.Logger) *Hello {
-    return &Hello{l}
+func NewHello(logger *log.Logger) *Hello {
+    return &Hello{logger}
 }
 
-func (h *Hello) ServeHTTP(rw http.ResponseWriter, w *http.Request) {
-    h.l.Println("hello world")
-    d, err := ioutil.ReadAll(w.Body)
+func (this *Hello) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+    this.logger.Println("Hello world")
+    d, err := ioutil.ReadAll(r.Body)
     if err != nil {
-        http.Error(rw, "Oops", http.StatusBadRequest)
+        http.Error(rw, "some thing went wrong", http.StatusBadRequest)
         return
     }
-    fmt.Fprintf(rw, "Hello %s", d)
+    fmt.Fprintf(rw, "Hello %s bitch\n", d)
 }
