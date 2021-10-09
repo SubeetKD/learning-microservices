@@ -19,12 +19,14 @@ func main() {
 	// initialize handlers
 	hello_handler := handlers.NewHello(logger)
 	goodbye_handler := handlers.NewGoodbye(logger)
+    product_handler := handlers.NewProduct(logger)
 
 	// create mux
 	serve_mux := http.NewServeMux()
 
 	// set handlers
-	serve_mux.Handle("/", hello_handler)
+	serve_mux.Handle("/shit", hello_handler)
+	serve_mux.Handle("/", product_handler)
 	serve_mux.Handle("/goodbye", goodbye_handler)
 
 	// set you custom server
@@ -41,6 +43,7 @@ func main() {
 		err := server.ListenAndServe()
 		if err != nil {
 			logger.Fatal(err)
+            os.Exit(1)
 		}
 	}()
 
